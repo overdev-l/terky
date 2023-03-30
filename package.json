@@ -1,0 +1,10 @@
+{
+  "name": "@terkyjs/terky-monorepo",
+  "version": "1.0.0",
+  "scripts": {
+    
+  },
+  "keywords": [],
+  "author": "yongzhiliu<yz@overdev.cn>",
+  "license": "ISC"
+}
