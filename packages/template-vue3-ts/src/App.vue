@@ -1,7 +1,7 @@
 <template>
-    <el-config-provider :z-index="3000" :locale="locale">
-        <router-view />
-    </el-config-provider>
+  <el-config-provider :z-index="3000" :locale="locale">
+    <router-view />
+  </el-config-provider>
 </template>
 
 <script lang="ts" setup>
