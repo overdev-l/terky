@@ -1,7 +1,9 @@
 {
   "name": "@terkyjs/terky-monorepo",
   "version": "1.0.0",
-  "scripts": {},
+  "scripts": {
+    "commitlint": "commitlint --config .commitlintrc.js -e -V"
+  },
   "keywords": [],
   "author": "yongzhiliu<yz@overdev.cn>",
   "license": "ISC",
