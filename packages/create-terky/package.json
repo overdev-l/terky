@@ -1,0 +1,23 @@
+{
+  "name": "create-terky",
+  "version": "1.0.0",
+  "description": "yongzhiliu",
+  "type": "module",
+  "bin": {
+    "create-terky": "index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.15.11",
+    "esbuild": "^0.17.14",
+    "kolorist": "^1.7.0",
+    "minimist": "^1.2.8",
+    "prompts": "^2.4.2",
+    "typescript": "^5.0.3"
+  }
+}
