@@ -5,6 +5,7 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 module.exports = merge(config, {
   mode: 'development',
   devtool: 'inline-source-map',
+  stats: 'errors-only',
   cache: {
     type: 'memory'
   },
@@ -26,6 +27,10 @@ module.exports = merge(config, {
     }
   },
   plugins: [
-    new ForkTsCheckerWebpackPlugin(),
+    new ForkTsCheckerWebpackPlugin({
+      logger: { log: () => null, error: info => {
+        console.log(`🙅 terky error ${info}`)
+      } },
+    }),
   ]
 })

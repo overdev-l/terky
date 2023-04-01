@@ -1,3 +1,3 @@
 <template>
-  <div>123sd</div>
+  <div>123</div>
 </template>

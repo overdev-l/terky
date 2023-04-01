@@ -5,11 +5,10 @@ const EslintWebpackPlugin = require('eslint-webpack-plugin')
 const AutoImport = require('unplugin-auto-import/webpack')
 const Components = require('unplugin-vue-components/webpack')
 const { ElementPlusResolver } = require('unplugin-vue-components/resolvers')
-const SimpleProgressWebpackPlugin = require('simple-progress-webpack-plugin')
 const WebpackBar = require('webpackbar')
-const WebpackMessages = require('webpack-messages')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const webpack = require('webpack')
+const { blue } = require('kolorist')
 module.exports = {
   stats: 'minimal',
   infrastructureLogging: { level: 'error' },
@@ -81,21 +80,16 @@ module.exports = {
     new webpack.ProvidePlugin({
       process: 'process/browser.js',
     }),
-    // new SimpleProgressWebpackPlugin({
-    //   color: '#1E90FF',
-    //   format: 'minimal',
-    //   name: '🚀 terky starting'
-    // }),
     new WebpackBar({
       color: '#1E90FF',
-      name: '🚀 terky starting'
-    }),
-    new WebpackMessages({
       name: '🚀 terky ',
-      onComplete: () => {
-        console.log('🚀 terky listener on http://localhost:9000')
+      reporter: {
+        afterAllDone() {
+          console.log(blue(`🏅️ terky ${blue('Started successfully. Listening on port 9000')}`))
+          console.log(blue(`👉 terky ${blue('Open it in your browser http://localhost:9000')}`))
+        }
       }
-    })
+    }),
   ],
   resolve: {
     extensions: ['.ts', '.js', '.vue'],
