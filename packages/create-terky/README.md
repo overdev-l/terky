@@ -18,3 +18,7 @@ pnpm create terky
 然后按照提示操作即可。
 
 如果您有更好的模版项目，可以提交PR，我会查看过后加入到模版列表中。
+
+模版列表：
+- vue3-ts(包含Element plus)
+- vue3-js(包含Element plus)
