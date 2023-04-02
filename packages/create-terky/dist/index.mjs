@@ -30,16 +30,11 @@ const createRepo = async (dir, template, spinner) => {
   const foldersToPull = `/packages/create-terky/${template}/*${os.EOL}`;
   const sourceDir = `${dir}/packages/create-terky/${template}`;
   await execa("git", ["init"], { cwd: dir });
-  console.log("\u521D\u59CB\u5316git", "git init");
   await execa("git", ["remote", "add", "-f", "origin", "git@github.com:overdev-l/terky.git"], { cwd: dir });
-  console.log("\u6DFB\u52A0\u8FDC\u7A0B\u4ED3\u5E93");
   await execa("git", ["config", "core.sparsecheckout", "true"], { cwd: dir });
-  console.log("\u914D\u7F6Egit");
   spinner.text = "\u6B63\u5728\u62C9\u53D6\u6A21\u677F | Pulling template...";
   await fs$1.writeFileSync(`${dir}/${filePath}`, foldersToPull, { encoding: "utf-8" });
-  console.log("\u62C9\u53D6\u6A21\u677F");
   await execa("git", ["pull", "origin", "master"], { cwd: dir });
-  console.log("\u62C9\u53D6\u6A21\u677F");
   await fs$1.copy(sourceDir, dir);
   await execa("rm", ["-rf", ".git"], { cwd: dir });
   await execa("rm", ["-rf", "packages"], { cwd: dir });
