@@ -1,16 +1,33 @@
 {
-  "name": "@terky/create-terky",
+  "name": "create-terky",
   "version": "1.0.0",
   "type": "module",
-  "description": "yongzhiliu",
+  "description": "",
+  "files": [
+    "index.js",
+    "template-*",
+    "dist"
+  ],
   "bin": {
     "create-terky": "index.js"
   },
   "scripts": {
     "build": "unbuild"
   },
-  "keywords": [],
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/overdev-l/terky.git",
+    "directory": "packages/create-terky"
+  },
+  "bugs": {
+    "url": "https://github.com/overdev-l/terky/issues"
+  },
+  "keywords": [
+    "terky",
+    "create-terky"
+  ],
+  "homepage": "https://github.com/overdev-l/terky/tree/master/packages/create-terky",
+  "author": "yongzhiliu",
   "license": "ISC",
   "devDependencies": {
     "@types/fs-extra": "^11.0.1",
