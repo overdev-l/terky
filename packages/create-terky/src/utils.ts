@@ -1,5 +1,5 @@
 import { blue, yellow } from 'kolorist'
-
+import fs from  'fs'
 export const defaultDir = 'terky-app'
 export const FRAMEWORKS = [
   {
@@ -15,3 +15,6 @@ export const FRAMEWORKS = [
     value: 'template-vue3-ts'
   },
 ]
+
+export const isEmpty = (dir: string) => fs.existsSync(dir)
+export const mkdirSync = (dir: string) => fs.mkdirSync(dir)

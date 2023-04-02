@@ -1,25 +1,32 @@
 {
   "name": "@terky/create-terky",
   "version": "1.0.0",
-  "description": "yongzhiliu",
   "type": "module",
+  "description": "yongzhiliu",
   "bin": {
     "create-terky": "index.js"
   },
   "scripts": {
-    "build": "node build.js"
+    "build": "unbuild"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/fs-extra": "^11.0.1",
     "@types/minimist": "^1.2.2",
     "@types/node": "^18.15.11",
     "@types/prompts": "^2.4.4",
     "esbuild": "^0.17.14",
+    "typescript": "^5.0.3"
+  },
+  "dependencies": {
+    "execa": "^7.1.1",
+    "fs-extra": "^11.1.1",
     "kolorist": "^1.7.0",
     "minimist": "^1.2.8",
+    "ora": "^6.3.0",
     "prompts": "^2.4.2",
-    "typescript": "^5.0.3"
+    "unbuild": "^1.2.0"
   }
 }

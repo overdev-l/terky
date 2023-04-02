@@ -5,8 +5,8 @@ const buildConfig = {
   bundle: true,
   format: 'esm',
   minify: false,
-  outfile: 'dist/index.mjs',
+  outfile: 'dist/index.js',
   platform: 'node',
 }
 
-build(buildConfig)
+build(buildConfig).catch(() => process.exit(1))
