@@ -28,6 +28,9 @@ importers:
 
   packages/create-terky:
     devDependencies:
+      '@types/minimist':
+        specifier: ^1.2.2
+        version: 1.2.2
       '@types/node':
         specifier: ^18.15.11
         version: 18.15.11

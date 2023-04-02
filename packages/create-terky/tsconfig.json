@@ -1,5 +1,5 @@
 {
-  "include": ["build.ts","./src/*"],
+  "include": ["src"],
   "compilerOptions": {
     "outDir": "dist",
     "target": "ES2020",
@@ -10,6 +10,8 @@
     "declaration": false,
     "sourceMap": false,
     "noUnusedLocals": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "noEmit": true,
+    "allowImportingTsExtensions": true
   }
 }
