@@ -1,5 +1,6 @@
 import { blue, yellow } from 'kolorist'
 import fs from  'fs'
+import minimist from 'minimist'
 export const defaultDir = 'terky-app'
 export const FRAMEWORKS = [
   {
@@ -18,3 +19,6 @@ export const FRAMEWORKS = [
 
 export const isEmpty = (dir: string) => fs.existsSync(dir)
 export const mkdirSync = (dir: string) => fs.mkdirSync(dir)
+export const getArgs = () => minimist(process.argv.slice(2))
+export const generateTypescript = (data: any) => {}
+export const generateJavascript = (data: any) => {}

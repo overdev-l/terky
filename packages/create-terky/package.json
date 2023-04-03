@@ -8,7 +8,8 @@
     "dist"
   ],
   "bin": {
-    "create-terky": "index.js"
+    "create-terky": "index.js",
+    "create-gapi": "gapi.js"
   },
   "scripts": {
     "build": "unbuild"
