@@ -1,5 +1,6 @@
 import { yellow, blue, reset, red } from 'kolorist';
 import fs from 'fs';
+import 'minimist';
 import { execa } from 'execa';
 import fs$1 from 'fs-extra';
 import os from 'os';
