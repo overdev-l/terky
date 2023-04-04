@@ -9,7 +9,7 @@ import 'fs';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const createRepo = async (targetDir, template) => {
-  const filePath = path.join(__dirname, `../${template}`);
+  const filePath = path.join(__dirname, `./${template}`);
   await execa("cp", ["-r", filePath, targetDir]);
 };
 
