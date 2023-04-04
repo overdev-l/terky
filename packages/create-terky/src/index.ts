@@ -35,9 +35,8 @@ async function main () {
     spinner.stop()
     return
   }
-  spinner.text = '正在创建目录 | Creating directory...'
   await mkdirSync(projectName)
-  await createRepo(root, template, spinner)
+  await createRepo(root, template,)
   spinner.succeed('创建成功 | Create success')
 }
 

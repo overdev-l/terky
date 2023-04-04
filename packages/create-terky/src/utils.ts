@@ -1,6 +1,5 @@
 import { blue, yellow } from 'kolorist'
 import fs from  'fs'
-import minimist from 'minimist'
 export const defaultDir = 'terky-app'
 export const FRAMEWORKS = [
   {

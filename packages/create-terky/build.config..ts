@@ -7,5 +7,5 @@ export default defineBuildConfig({
         esbuild: {
             minify: true,
         },
-    },
+    }
 })

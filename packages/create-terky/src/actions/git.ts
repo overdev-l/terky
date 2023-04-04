@@ -1,18 +1,22 @@
-import { execa } from 'execa'
-import {Ora} from "ora"
-import fs from 'fs-extra'
-import os from 'os'
-export const createRepo = async (dir: string, template: string, spinner: Ora) => {
-    const filePath = '.git/info/sparse-checkout'
-    const foldersToPull = `/packages/create-terky/${template}/*${os.EOL}`
-    const sourceDir = `${dir}/packages/create-terky/${template}`
-    await execa('git', ['init'], { cwd: dir  })
-    await execa('git', ['remote', 'add', '-f', 'origin', 'git@github.com:overdev-l/terky.git'], { cwd: dir  })
-    await execa('git', ['config', 'core.sparsecheckout', 'true'], { cwd: dir  })
-    spinner.text = '正在拉取模板 | Pulling template...'
-    await fs.writeFileSync(`${dir}/${filePath}`, foldersToPull, { encoding: 'utf-8' })
-    await execa('git', ['pull', 'origin', 'master'], {cwd: dir})
-    await fs.copy(sourceDir, dir, )
-    await execa('rm', ['-rf', '.git'], {cwd: dir})
-    await execa('rm', ['-rf', 'packages'], {cwd: dir})
+import { createReadStream, createWriteStream } from 'fs';
+import { existsSync, readdirSync } from 'fs';
+import path, { dirname } from "path";
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+export const createRepo = async (targetDir: string, template: string) => {
+    if (!existsSync(targetDir)) {
+        console.error(`Target directory '${targetDir}' does not exist.`);
+        process.exit(1);
+      }
+    const sourceDir = path.join(__dirname, `../../${template}`)
+      readdirSync(sourceDir).forEach((file: string) => {
+        const srcFilePath = path.join(sourceDir, file);
+        const destFilePath = path.join(targetDir, file);
+      
+        const readStream = createReadStream(srcFilePath); // 创建读取流对象 
+        const writeStream = createWriteStream(destFilePath);//创建写流对象 
+      
+        readStream.pipe(writeStream);
+      })
  }
