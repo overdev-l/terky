@@ -1,6 +1,6 @@
 import { defaultDir, FRAMEWORKS, isEmpty, mkdirSync} from './utils.ts'
 import { createRepo } from './actions/git.ts'
-import { red, reset,  } from 'kolorist'
+import { green, red, reset,  } from 'kolorist'
 import prompts from 'prompts'
 import path from "path"
 import ora from 'ora'
@@ -26,18 +26,20 @@ async function main () {
       console.log(red('✖') + '操作被取消 | Operation canceled')
     }
   })
-  const spinner = ora('正在创建项目 | Creating project...').start()
   const { projectName, template } = result
   const root = path.join(process.cwd(), projectName)
   if (isEmpty(root)) {
     console.log(red('✖') + `目录已存在 | Directory already exists: /${projectName}`)
-    ora().fail('创建失败 | Create failed')
-    spinner.stop()
     return
   }
-  await mkdirSync(projectName)
   await createRepo(root, template,)
-  spinner.succeed('创建成功 | Create success')
+  console.log(green('✔') + `创建成功 | Created successfully`)
+  console.log(`\n`)
+  console.log(`👉 进入目录 | cd ${projectName}`)
+  console.log(`\n`)
+  console.log(`👉 安装依赖 | npm install`)
+  console.log(`\n`)
+  console.log(`👉 启动项目 | npm run start`)
 }
 
 main().catch((err) => {

@@ -1,5 +1,5 @@
 import path from 'node:path';
-import { g as generateTypescript, a as generateJavascript } from './shared/create-terky.71171732.mjs';
+import { g as generateTypescript, a as generateJavascript } from './shared/create-terky.d81616f2.mjs';
 import fs from 'fs-extra';
 import minimist from 'minimist';
 import 'kolorist';

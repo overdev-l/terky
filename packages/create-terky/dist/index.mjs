@@ -1,26 +1,16 @@
-import { d as defaultDir, F as FRAMEWORKS, i as isEmpty, m as mkdirSync } from './shared/create-terky.71171732.mjs';
-import { existsSync, readdirSync, createReadStream, createWriteStream } from 'fs';
+import { d as defaultDir, F as FRAMEWORKS, i as isEmpty } from './shared/create-terky.d81616f2.mjs';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { reset, red } from 'kolorist';
+import { execa } from 'execa';
+import { reset, red, green } from 'kolorist';
 import prompts from 'prompts';
-import ora from 'ora';
+import 'fs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const createRepo = async (targetDir, template) => {
-  if (!existsSync(targetDir)) {
-    console.error(`Target directory '${targetDir}' does not exist.`);
-    process.exit(1);
-  }
-  const sourceDir = path.join(__dirname, `../../${template}`);
-  readdirSync(sourceDir).forEach((file) => {
-    const srcFilePath = path.join(sourceDir, file);
-    const destFilePath = path.join(targetDir, file);
-    const readStream = createReadStream(srcFilePath);
-    const writeStream = createWriteStream(destFilePath);
-    readStream.pipe(writeStream);
-  });
+  const filePath = path.join(__dirname, `../${template}`);
+  await execa("cp", ["-r", filePath, targetDir]);
 };
 
 async function main() {
@@ -45,18 +35,23 @@ async function main() {
       console.log(red("\u2716") + "\u64CD\u4F5C\u88AB\u53D6\u6D88 | Operation canceled");
     }
   });
-  const spinner = ora("\u6B63\u5728\u521B\u5EFA\u9879\u76EE | Creating project...").start();
   const { projectName, template } = result;
   const root = path.join(process.cwd(), projectName);
   if (isEmpty(root)) {
     console.log(red("\u2716") + `\u76EE\u5F55\u5DF2\u5B58\u5728 | Directory already exists: /${projectName}`);
-    ora().fail("\u521B\u5EFA\u5931\u8D25 | Create failed");
-    spinner.stop();
     return;
   }
-  await mkdirSync(projectName);
   await createRepo(root, template);
-  spinner.succeed("\u521B\u5EFA\u6210\u529F | Create success");
+  console.log(green("\u2714") + `\u521B\u5EFA\u6210\u529F | Created successfully`);
+  console.log(`
+`);
+  console.log(`\u{1F449} \u8FDB\u5165\u76EE\u5F55 | cd ${projectName}`);
+  console.log(`
+`);
+  console.log(`\u{1F449} \u5B89\u88C5\u4F9D\u8D56 | npm install`);
+  console.log(`
+`);
+  console.log(`\u{1F449} \u542F\u52A8\u9879\u76EE | npm run start`);
 }
 main().catch((err) => {
   console.error(err);
