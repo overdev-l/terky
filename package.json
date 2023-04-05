@@ -17,9 +17,10 @@
     "@commitlint/config-conventional": "^17.4.4",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@typescript-eslint/parser": "^5.57.0",
+    "auto-changelog": "^2.4.0",
     "cz-git": "^1.6.1",
     "eslint": "^8.37.0",
     "husky": "^8.0.3",
-    "auto-changelog": "^2.4.0"
+    "unbuild": "^1.2.0"
   }
 }
