@@ -3,8 +3,9 @@ interface Initial {
   delay: number
   rootPath?: string
   request?: () => Promise<string>
-  key: string
+  key: string 
 }
+
 export function useNotification(params: Initial) {
 const regex = new RegExp(`${params.key}\\s*=\\s*['"]([^'"]+)['"]`)
   let timer: number
