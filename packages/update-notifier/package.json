@@ -2,26 +2,21 @@
   "name": "@terky/update-notifier",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
-  "exports": {
-    ".": {
-      "import": "./index.js",
-      "require": "./index.cjs"
-    }
-  },
+  "main": "./dist/index.esm.js",
+  "type": "module",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "unbuild --output dist --format cjs,esm --minify"
+    "build:esm": "node ./build.js --format esm",
+    "build:cjs": "node ./build.js --format cjs",
+    "build:umd": "node ./build.js --format umd",
+    "build": "npm run build:esm && npm run build:cjs && npm run build:umd"
   },
   "keywords": [],
-  "author": "",
+  "author": "yongzhiliu",
   "license": "ISC",
   "dependencies": {
     "greenlet": "^1.1.0"
-  },
-  "devDependencies": {
-    "@rollup/plugin-terser": "^0.4.0"
   }
 }

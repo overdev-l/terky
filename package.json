@@ -19,8 +19,10 @@
     "@typescript-eslint/parser": "^5.57.0",
     "auto-changelog": "^2.4.0",
     "cz-git": "^1.6.1",
+    "esbuild": "^0.17.14",
     "eslint": "^8.37.0",
     "husky": "^8.0.3",
+    "minimist": "^1.2.8",
     "unbuild": "^1.2.0"
   }
 }
