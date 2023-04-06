@@ -41,20 +41,23 @@ const handleVisibilityChange = async (currentHash: string) => {
   if (document.visibilityState === 'visible') {
     const hash = await queryNewHash()
   if (hash !== currentHash) {
-    const notice = useCreateNotify(true)
-    window.dispatchEvent(notice)
+    dispatchEvent(true)
   }
  } 
 }
 const windowLoaded = async (currentHash: string) => {
   const hash = await queryNewHash()
   if (hash !== currentHash) {
-    const notice = useCreateNotify(true)
-    window.dispatchEvent(notice)
+    dispatchEvent(true)
   }
 }
 
 const interval = (fn: () => void, delay: number) => {
   fn()
   return setInterval(fn, delay)
+}
+
+const dispatchEvent = (status: boolean) => {
+  const notice = useCreateNotify(status)
+  window.dispatchEvent(notice)
 }
