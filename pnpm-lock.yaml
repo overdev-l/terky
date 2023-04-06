@@ -73,10 +73,10 @@ importers:
         version: 5.0.3
 
   packages/update-notifier:
-    devDependencies:
-      workerize:
-        specifier: ^0.1.8
-        version: 0.1.8
+    dependencies:
+      greenlet:
+        specifier: ^1.1.0
+        version: 1.1.0
 
 packages:
 
@@ -1905,6 +1905,10 @@ packages:
     resolution: {integrity: sha512-bzh50DW9kTPM00T8y4o8vQg89Di9oLJVLW/KaOGIXJWP/iqCN6WKYkbNOF04vFLJhwcpYUh9ydh/+5vpOqV4YQ==}
     dev: true
 
+  /greenlet@1.1.0:
+    resolution: {integrity: sha512-W/kKzq7ZSF/LFItIjaSaccw8L6js+9SMSS5buXZs/Td7qZAT91Kd0LTxuUjSWDwuyv4MPo/fhZdkRLV1zsuClg==}
+    dev: false
+
   /handlebars@4.7.7:
     resolution: {integrity: sha512-aAcXm5OAfE/8IXkcZvCepKU3VzW1/39Fb5ZuqMtgI/hT8X2YgoMvBY5dLhq/cpOvw7Lk1nK/UF71aLG/ZnVYRA==}
     engines: {node: '>=0.4.7'}
@@ -3189,10 +3193,6 @@ packages:
 
   /wordwrap@1.0.0:
     resolution: {integrity: sha512-gvVzJFlPycKc5dZN4yPkP8w7Dc37BtP1yczEneOb4uq34pXZcvrtRTmWV8W+Ume+XCxKgbjM+nevkyFPMybd4Q==}
-    dev: true
-
-  /workerize@0.1.8:
-    resolution: {integrity: sha512-X2y/MZ4UHXY00CKPbhb7g5Pm7aagKmXqTETvG/gi9I0tlrONqAN8jRuyLvlyvhrXTugJUk9Dzz7UBpSwFIP8pQ==}
     dev: true
 
   /wrap-ansi@7.0.0:

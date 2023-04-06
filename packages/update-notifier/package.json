@@ -9,7 +9,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "workerize": "^0.1.8"
+  "dependencies": {
+    "greenlet": "^1.1.0"
   }
 }

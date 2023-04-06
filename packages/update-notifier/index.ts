@@ -1,63 +1,71 @@
-
+import greenlet from 'greenlet'
 interface Initial {
   delay: number
   rootPath?: string
   loop: boolean
-  request?: (toggle:() => void) => void
+  request?: () => Promise<string>
 }
 
 export function useNotification(params: Initial) {
+  let timer: undefined | number
+  const useCreateNotify = (notice: boolean) => new CustomEvent("siteUpdate", {
+    bubbles: true,
+    detail: { data: notice }
+  })
+
+  const getCurrentHash = () => {
+    const body = document.querySelector('body')
+    if (!body) return false
+    const hash = body.getAttribute('data-hash')
+    return hash
+  }
   const currentHash = getCurrentHash()
-  if (!currentHash) return
-  init(currentHash)
-}
+  const requestHash = async () => {
+    const res = await fetch(window.origin + (params.rootPath || ''))
+    const data = await res.text()
+    return data
+  }
+  const queryNewHash = greenlet(params.request || requestHash)
 
-const useCreateNotify = (notice: boolean) => new CustomEvent("siteUpdate", {
-  bubbles: true,
-  detail: { data: notice }
-})
-
-const getCurrentHash = () => {
-  const body = document.querySelector('body')
-  if (!body) return false
-  const hash = body.getAttribute('data-hash')
-  return hash
-}
-
-const queryNewHash = async () => {
-  const res = await fetch('/hash')
-  const data = await res.json()
-  return data.hash
-}
-
-const init = (currentHash: string) => {
-  window.addEventListener('load', windowLoaded.bind(null, currentHash))
-
-  document.addEventListener('visibilitychange', handleVisibilityChange.bind(null, currentHash))
-}
+  const initEvent = () => {
+    window.addEventListener('load', windowLoaded)
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+  }
 
 
-const handleVisibilityChange = async (currentHash: string) => {
-  if (document.visibilityState === 'visible') {
+  const handleVisibilityChange = async () => {
+    if (document.visibilityState === 'visible') {
+      const hash = await queryNewHash()
+      if (hash !== currentHash) {
+        dispatchEvent(true)
+      } else {
+        initTimer()
+      }
+    } else {
+      clearInterval(timer)
+    }
+  }
+  const windowLoaded = async () => {
     const hash = await queryNewHash()
-  if (hash !== currentHash) {
-    dispatchEvent(true)
+    if (hash !== currentHash) {
+      dispatchEvent(true)
+    }
   }
- } 
-}
-const windowLoaded = async (currentHash: string) => {
-  const hash = await queryNewHash()
-  if (hash !== currentHash) {
-    dispatchEvent(true)
+  const dispatchEvent = (status: boolean) => {
+    const notice = useCreateNotify(status)
+    window.dispatchEvent(notice)
   }
+  const initTimer = () => {
+    timer = setInterval(async () => {
+      const hash = await queryNewHash()
+      if (hash !== currentHash) {
+        dispatchEvent(true)
+      }
+    }, params.delay)
+  }
+  if (!currentHash) return
+  initEvent()
+  initTimer()
 }
 
-const interval = (fn: () => void, delay: number) => {
-  fn()
-  return setInterval(fn, delay)
-}
 
-const dispatchEvent = (status: boolean) => {
-  const notice = useCreateNotify(status)
-  window.dispatchEvent(notice)
-}
