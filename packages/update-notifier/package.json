@@ -1,5 +1,5 @@
 {
-  "name": "@terky/update-notifier",
+  "name": "terky-update-notifier",
   "version": "0.0.1",
   "description": "",
   "main": "./dist/index.esm.js",
