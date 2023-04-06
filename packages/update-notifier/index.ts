@@ -22,7 +22,7 @@ const regex = new RegExp(`${params.key}\\s*=\\s*['"]([^'"]+)['"]`)
   }
   const currentHash = getCurrentHash()
   const requestHash = async () => {
-    const res = await fetch(window.origin + (params.rootPath || ''))
+    const res = await fetch(`${window.origin + (params.rootPath || '')} ?t=${Date.now()}` )
     const data = await res.text()
     const matchResult = data.match(regex)
     return matchResult ? matchResult[2] : null
