@@ -3,10 +3,11 @@ interface Initial {
   delay: number
   rootPath?: string
   request?: () => Promise<string>
+  key: string
 }
-
 export function useNotification(params: Initial) {
-  let timer: undefined | NodeJS.Timeout
+const regex = new RegExp(`${params.key}\\s*=\\s*['"]([^'"]+)['"]`)
+  let timer: number
   const useCreateNotify = (notice: boolean) => new CustomEvent("siteUpdate", {
     bubbles: true,
     detail: { data: notice }
@@ -22,7 +23,8 @@ export function useNotification(params: Initial) {
   const requestHash = async () => {
     const res = await fetch(window.origin + (params.rootPath || ''))
     const data = await res.text()
-    return data
+    const matchResult = data.match(regex)
+    return matchResult ? matchResult[2] : null
   }
   const queryNewHash = greenlet(params.request || requestHash)
 
@@ -66,5 +68,21 @@ export function useNotification(params: Initial) {
   initEvent()
   initTimer()
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

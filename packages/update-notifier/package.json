@@ -3,13 +3,25 @@
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
+  "exports": {
+    ".": {
+      "import": "./index.js",
+      "require": "./index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "unbuild"
+    "build": "unbuild --output dist --format cjs,esm --minify"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "greenlet": "^1.1.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.0"
   }
 }
