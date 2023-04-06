@@ -34,12 +34,9 @@ async function main () {
   }
   await createRepo(root, template,)
   console.log(green('✔') + `创建成功 | Created successfully`)
-  console.log(`\n`)
-  console.log(`👉 进入目录 | cd ${projectName}`)
-  console.log(`\n`)
-  console.log(`👉 安装依赖 | npm install`)
-  console.log(`\n`)
-  console.log(`👉 启动项目 | npm run start`)
+  console.log(`👉 ${green(`进入目录 | cd ${projectName}`)}`)
+  console.log(`👉 ${green('安装依赖 | npm install')}`)
+  console.log(`👉 ${green(`启动项目 | npm run start`)}`)
 }
 
 main().catch((err) => {
