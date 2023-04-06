@@ -2,12 +2,11 @@ import greenlet from 'greenlet'
 interface Initial {
   delay: number
   rootPath?: string
-  loop: boolean
   request?: () => Promise<string>
 }
 
 export function useNotification(params: Initial) {
-  let timer: undefined | number
+  let timer: undefined | NodeJS.Timeout
   const useCreateNotify = (notice: boolean) => new CustomEvent("siteUpdate", {
     bubbles: true,
     detail: { data: notice }
