@@ -8,5 +8,6 @@ export default defineBuildConfig({
             minify: true,
         },
     },
+    outDir: './',
     declaration: true,
 })
