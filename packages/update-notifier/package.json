@@ -1,6 +1,6 @@
 {
-  "name": "terky-update-notifier",
-  "version": "0.0.1",
+  "name": "@terky/update-notifier",
+  "version": "0.0.3",
   "description": "",
   "main": "./dist/index.esm.min.js",
   "type": "module",
