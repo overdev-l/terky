@@ -9,7 +9,7 @@ import 'fs';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const createRepo = async (targetDir, template) => {
-  const filePath = path.join(__dirname, `./${template}`);
+  const filePath = path.join(__dirname, `../../${template}`);
   await execa("cp", ["-r", filePath, targetDir]);
 };
 
@@ -43,15 +43,9 @@ async function main() {
   }
   await createRepo(root, template);
   console.log(green("\u2714") + `\u521B\u5EFA\u6210\u529F | Created successfully`);
-  console.log(`
-`);
-  console.log(`\u{1F449} \u8FDB\u5165\u76EE\u5F55 | cd ${projectName}`);
-  console.log(`
-`);
-  console.log(`\u{1F449} \u5B89\u88C5\u4F9D\u8D56 | npm install`);
-  console.log(`
-`);
-  console.log(`\u{1F449} \u542F\u52A8\u9879\u76EE | npm run start`);
+  console.log(`\u{1F449} ${green(`\u8FDB\u5165\u76EE\u5F55 | cd ${projectName}`)}`);
+  console.log(`\u{1F449} ${green("\u5B89\u88C5\u4F9D\u8D56 | npm install")}`);
+  console.log(`\u{1F449} ${green(`\u542F\u52A8\u9879\u76EE | npm run start`)}`);
 }
 main().catch((err) => {
   console.error(err);

@@ -8,15 +8,16 @@
     "dist"
   ],
   "scripts": {
-    "build:esm": "node ./build.js --format esm",
-    "build:cjs": "node ./build.js --format cjs",
-    "build:umd": "node ./build.js --format umd",
-    "build": "npm run build:esm && npm run build:cjs && npm run build:umd"
+    "build": "rollup -c rollup.config.js"
   },
   "keywords": [],
   "author": "yongzhiliu",
   "license": "ISC",
   "dependencies": {
-    "greenlet": "^1.1.0"
+    "greenlet": "^1.1.0",
+    "tslib": "^2.5.0"
+  },
+  "devDependencies": {
+    
   }
 }
