@@ -1,6 +1,6 @@
 {
   "name": "@terky/update-notifier",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "",
   "main": "./dist/index.esm.min.js",
   "type": "module",
@@ -11,7 +11,19 @@
     "build": "rollup -c",
     "push": "npm version patch && npm publish --access=public"
   },
-  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/overdev-l/terky.git",
+    "directory": "packages/update-notifier"
+  },
+  "bugs": {
+    "url": "https://github.com/overdev-l/terky/issues"
+  },
+  "homepage": "https://github.com/overdev-l/terky/tree/master/packages/update-notifier#readme",
+  "keywords": [
+    "site update",
+    "update notifier"
+  ],
   "author": "yongzhiliu",
   "license": "ISC",
   "dependencies": {
