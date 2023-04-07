@@ -8,7 +8,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "rollup -c rollup.config.js"
+    "build": "rollup -c"
   },
   "keywords": [],
   "author": "yongzhiliu",
@@ -18,6 +18,6 @@
     "tslib": "^2.5.0"
   },
   "devDependencies": {
-    
+    "@rollup/plugin-typescript": "^11.1.0"
   }
 }

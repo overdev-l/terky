@@ -11,12 +11,11 @@
     "sourceMap": false,
     "noUnusedLocals": true,
     "esModuleInterop": true,
-    "declaration": true,
-    "emitDeclarationOnly": true,
-    "allowImportingTsExtensions": true,
+    "allowImportingTsExtensions":false,
     "baseUrl": ".",
     "paths": {
-      "greenlet": ["./node_modules/greenlet"]
+      "greenlet": ["./node_modules/greenlet/index.d.ts"],
+      "tslib" : ["./node_modules/tslib/tslib.d.ts"]
     }
   }
 }
