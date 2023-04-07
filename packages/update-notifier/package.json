@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "build": "rollup -c",
-    "push": "npm version patch && npm publish"
+    "push": "npm version patch && npm publish --access=public"
   },
   "keywords": [],
   "author": "yongzhiliu",
