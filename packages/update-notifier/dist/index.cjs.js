@@ -53,13 +53,29 @@ function __generator(thisArg, body) {
     }
 }
 
-function greenlet(e){var n=0,t={},a=URL.createObjectURL(new Blob(["$$="+e+";onmessage="+function(e){Promise.resolve(e.data[1]).then(function(e){return $$.apply($$,e)}).then(function(n){postMessage([e.data[0],0,n],[n].filter(function(e){return e instanceof ArrayBuffer||e instanceof MessagePort||self.ImageBitmap&&e instanceof ImageBitmap}));},function(n){postMessage([e.data[0],1,""+n]);});}])),o=new Worker(a);return o.onmessage=function(e){t[e.data[0]][e.data[1]](e.data[2]),t[e.data[0]]=null;},function(e){return e=[].slice.call(arguments),new Promise(function(){t[++n]=arguments,o.postMessage([n,e],e.filter(function(e){return e instanceof ArrayBuffer||e instanceof MessagePort||self.ImageBitmap&&e instanceof ImageBitmap}));})}}
+var worker = "\nself.onmessage = function (e) {\n  const { url, init } = e.data\n  console.log(e)\n  const request = () => {\n  return fetch(url, init)\n  }\n  request().then(async res => {\n  const result = await res.text()\n  self.postMessage(result)\n  })\n}\n";
+var greenlet = function () {
+    var blob = new Blob([worker], { type: 'application/javascript' });
+    var workerUrl = URL.createObjectURL(blob);
+    var workerInstance = new Worker(workerUrl);
+    return function (url, init) { return new Promise(function (resolve, reject) {
+        workerInstance.onmessage = function (e) {
+            resolve(e.data);
+        };
+        workerInstance.onerror = function (e) {
+            console.log(e, 'error');
+            reject(e);
+        };
+        workerInstance.postMessage({ url: url, init: init });
+    }); };
+};
+var useGreenlet = greenlet();
 
 function useNotification(params) {
     var _this = this;
     var regex = new RegExp("".concat(params.key, "\\s*=\\s*['\"]([^'\"]+)['\"]"));
     var timer;
-    var useCreateNotify = function (notice) { return new CustomEvent("siteUpdate", {
+    var useCreateNotify = function (notice) { return new CustomEvent('siteUpdate', {
         bubbles: true,
         detail: { data: notice }
     }); };
@@ -71,22 +87,21 @@ function useNotification(params) {
         return hash;
     };
     var currentHash = getCurrentHash();
-    var requestHash = function () { return __awaiter(_this, void 0, void 0, function () {
-        var res, data, matchResult;
+    var queryNewHash = useGreenlet.bind(null, params.url || "".concat(window.origin, "?t=").concat(Date.now()), params.init || {
+        method: 'get'
+    });
+    var validateHash = function () { return __awaiter(_this, void 0, void 0, function () {
+        var hash, data;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, fetch("".concat(window.origin + (params.rootPath || ''), " ?t=").concat(Date.now()))];
+                case 0: return [4 /*yield*/, queryNewHash()];
                 case 1:
-                    res = _a.sent();
-                    return [4 /*yield*/, res.text()];
-                case 2:
-                    data = _a.sent();
-                    matchResult = data.match(regex);
-                    return [2 /*return*/, matchResult ? matchResult[2] : null];
+                    hash = _a.sent();
+                    data = hash.match(regex);
+                    return [2 /*return*/, data ? data[1] || null : null];
             }
         });
     }); };
-    var queryNewHash = greenlet(params.request || requestHash);
     var initEvent = function () {
         window.addEventListener('load', windowLoaded);
         document.addEventListener('visibilitychange', handleVisibilityChange);
@@ -97,9 +112,10 @@ function useNotification(params) {
             switch (_a.label) {
                 case 0:
                     if (!(document.visibilityState === 'visible')) return [3 /*break*/, 2];
-                    return [4 /*yield*/, queryNewHash()];
+                    return [4 /*yield*/, validateHash()];
                 case 1:
                     hash = _a.sent();
+                    console.log(hash, currentHash, typeof hash, typeof currentHash, hash !== currentHash, 'hash !== currentHash');
                     if (hash !== currentHash) {
                         dispatchEvent(true);
                     }
@@ -118,9 +134,10 @@ function useNotification(params) {
         var hash;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, queryNewHash()];
+                case 0: return [4 /*yield*/, validateHash()];
                 case 1:
                     hash = _a.sent();
+                    console.log(hash, currentHash, typeof hash, typeof currentHash, hash !== currentHash, 'hash !== currentHash');
                     if (hash !== currentHash) {
                         dispatchEvent(true);
                     }
@@ -137,9 +154,10 @@ function useNotification(params) {
             var hash;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, queryNewHash()];
+                    case 0: return [4 /*yield*/, validateHash()];
                     case 1:
                         hash = _a.sent();
+                        console.log(hash, currentHash, typeof hash, typeof currentHash, hash !== currentHash, 'hash !== currentHash');
                         if (hash !== currentHash) {
                             dispatchEvent(true);
                         }

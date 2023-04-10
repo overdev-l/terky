@@ -1,9 +1,21 @@
-type Initial = {
+interface FecthInit {
+    mehtod?: 'get' | 'post';
+    headers?: Headers;
+    body?: any;
+    mode?: any;
+    credentials?: any;
+    cache?: any;
+    redirect?: any;
+    referrer?: any;
+    referrerPolicy?: any;
+    integrity?: any;
+}
+interface Initial {
     delay: number;
-    rootPath?: string;
-    request?: () => Promise<string>;
+    url?: string;
+    init?: FecthInit;
     key: string;
-};
+}
 declare function useNotification(params: Initial): void;
 
-export { Initial, useNotification };
+export { useNotification };
