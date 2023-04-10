@@ -1,14 +1,26 @@
-import greenlet from 'greenlet'
-export type Initial =  {
+import { useGreenlet } from './utils'
+interface FecthInit {
+  mehtod?: 'get' | 'post',
+  headers?: Headers,
+  body?: any,
+  mode?: any
+  credentials?: any
+  cache?: any
+  redirect?: any
+  referrer?: any
+  referrerPolicy?: any
+  integrity?: any
+}
+interface Initial {
   delay: number
-  rootPath?: string
-  request?: () => Promise<string>
-  key: string 
+  url?: string
+  init?: FecthInit
+  key: string
 }
 export function useNotification(params: Initial) {
-const regex = new RegExp(`${params.key}\\s*=\\s*['"]([^'"]+)['"]`)
-  let timer: number
-  const useCreateNotify = (notice: boolean) => new CustomEvent("siteUpdate", {
+  const regex = new RegExp(`${params.key}\\s*=\\s*['"]([^'"]+)['"]`)
+  let timer: any
+  const useCreateNotify = (notice: boolean) => new CustomEvent('siteUpdate', {
     bubbles: true,
     detail: { data: notice }
   })
@@ -19,24 +31,25 @@ const regex = new RegExp(`${params.key}\\s*=\\s*['"]([^'"]+)['"]`)
     const hash = body.getAttribute('data-hash')
     return hash
   }
-  const currentHash = getCurrentHash()
-  const requestHash = async () => {
-    const res = await fetch(`${window.origin + (params.rootPath || '')} ?t=${Date.now()}` )
-    const data = await res.text()
-    const matchResult = data.match(regex)
-    return matchResult ? matchResult[2] : null
-  }
-  const queryNewHash = greenlet(params.request || requestHash)
 
+  const currentHash = getCurrentHash()
+  const queryNewHash = useGreenlet.bind(null, params.url || `${window.origin}?t=${Date.now()}`, params.init || {
+    method: 'get'
+  })
+  const validateHash = async () => {
+    const hash = await queryNewHash()
+    const data = hash.match(regex)
+    return data ? data[1] || null : null
+  }
   const initEvent = () => {
     window.addEventListener('load', windowLoaded)
     document.addEventListener('visibilitychange', handleVisibilityChange)
   }
 
-
   const handleVisibilityChange = async () => {
     if (document.visibilityState === 'visible') {
-      const hash = await queryNewHash()
+      const hash = await validateHash()
+      console.log(hash, currentHash, typeof hash, typeof currentHash, hash !== currentHash, 'hash !== currentHash')
       if (hash !== currentHash) {
         dispatchEvent(true)
       } else {
@@ -47,7 +60,8 @@ const regex = new RegExp(`${params.key}\\s*=\\s*['"]([^'"]+)['"]`)
     }
   }
   const windowLoaded = async () => {
-    const hash = await queryNewHash()
+    const hash = await validateHash()
+    console.log(hash, currentHash, typeof hash, typeof currentHash, hash !== currentHash, 'hash !== currentHash')
     if (hash !== currentHash) {
       dispatchEvent(true)
     }
@@ -58,7 +72,8 @@ const regex = new RegExp(`${params.key}\\s*=\\s*['"]([^'"]+)['"]`)
   }
   const initTimer = () => {
     timer = setInterval(async () => {
-      const hash = await queryNewHash()
+      const hash = await validateHash()
+      console.log(hash, currentHash, typeof hash, typeof currentHash, hash !== currentHash, 'hash !== currentHash')
       if (hash !== currentHash) {
         dispatchEvent(true)
       }
@@ -68,21 +83,3 @@ const regex = new RegExp(`${params.key}\\s*=\\s*['"]([^'"]+)['"]`)
   initEvent()
   initTimer()
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
