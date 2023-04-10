@@ -34,7 +34,7 @@ module.exports = {
     ...,
     new HtmlWebpackPlugin({
       title: 'title',
-      hash: '[hash]',
+      hash: new Data().getTime(),
       template: path.resolve(__dirname, '../index.html')
     })
 
