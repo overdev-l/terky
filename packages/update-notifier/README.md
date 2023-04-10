@@ -1,6 +1,15 @@
-# Update-notifier
+<div align="center">
+  <h1>Update-notifier</h1>
+</div>
+<div align="center">
 
 update-notifier是一个用于网站更新时通知用户更新网页内容的插件，支持IE10+，它使用了`web workers`来发送请求
+
+<img src="https://img.shields.io/github/stars/overdev-l/terky" alt="stars">
+<img src="https://badgen.net/npm/v/@terky/update-notifier" alt="Version" />
+<img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="licence">
+
+</div>
 
 ## 安装
 使用NPM
