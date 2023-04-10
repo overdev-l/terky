@@ -18,9 +18,9 @@ update-notifier导出了一个函数`useNotification`，接收以下的参数
 | name     | required | type                            | default | remark         |
 |----------|----------|---------------------------------|---------|----------------|
 | delay    | true     | number                          | 180000  | 查询间隔       |
-| rootPath | false    | string                          | '/'     | 二级地址       |
+| init     | false    | string                          | `${window.origin}?t=${Date.now()}`     | 请求地址       |
 | key      | true     | string                          |         | 要查询的字段   |
-| request  | false    | function():Promise < string >   |         | 自定义查询函数 |
+| init     | false    | Fetch.init  |    {method: "get"}     | fetch请求参数，[详情](https://developer.mozilla.org/zh-CN/docs/Web/API/fetch) |
 
 您可以放心，您传入的`request`函数也会在`web worker`中执行
 
