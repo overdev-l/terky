@@ -11,19 +11,6 @@ update-notifier是一个用于网站更新时通知用户更新网页内容的�
 
 </div>
 
-## 安装
-使用NPM
-```bash
-npm install -S @terky/update-notifier
-```
-使用Yarn
-```bash
-yarn add -S @terky/update-notifier
-```
-使用PNPM
-```bash
-pnpm add -S @terky/update-notifier
-```
 
 ## 使用
 update-notifier导出了一个函数`useNotification`，接收以下的参数
