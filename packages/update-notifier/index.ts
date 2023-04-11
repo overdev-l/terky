@@ -75,11 +75,11 @@ export function useNotification(params: Initial) {
     }
   }
   const dispatchEvent = (status: boolean, data: Data) => {
+    const notice = useCreateNotify(status, data)
+    window.dispatchEvent(notice)
     if (!loop){
       currentHash = data.siteHash
     }
-    const notice = useCreateNotify(status, data)
-    window.dispatchEvent(notice)
   }
   const initTimer = () => {
     timer = setInterval(async () => {
@@ -95,10 +95,4 @@ export function useNotification(params: Initial) {
   if (!currentHash) return
   initEvent()
   initTimer()
-
-  const disposeUpdate = () => {
-    clearInterval(timer)
-    window.removeEventListener('load', windowLoaded)
-    window.removeEventListener('visibilitychange', handleVisibilityChange)
-  }
 }
