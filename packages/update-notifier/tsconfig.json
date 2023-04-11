@@ -1,20 +1,21 @@
 {
   "include": ["index.ts"],
   "compilerOptions": {
-    "outDir": "dist",
-    "target": "ES2020",
-    "module": "ES2020",
+    "outDir": "./dist",
+    "target": "ES5",
+    "module": "ESNext",
     "moduleResolution": "bundler",
-    "lib": ["es2015", "dom"],
+    "lib": ["es2015", "dom", "es5", "es2015.promise"],
     "strict": true,
     "skipLibCheck": true,
     "sourceMap": false,
     "noUnusedLocals": true,
     "esModuleInterop": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
     "allowImportingTsExtensions":false,
     "baseUrl": ".",
     "paths": {
-      "greenlet": ["./node_modules/greenlet/index.d.ts"],
       "tslib" : ["./node_modules/tslib/tslib.d.ts"]
     }
   }

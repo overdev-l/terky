@@ -1,6 +1,6 @@
 import { useGreenlet } from './utils'
 interface FecthInit {
-  mehtod?: 'get' | 'post',
+  method?: 'get' | 'post',
   headers?: Headers,
   body?: any,
   mode?: any
@@ -15,11 +15,14 @@ interface Initial {
   delay: number
   url?: string
   init?: FecthInit
-  key: string
+  key: string,
+  loop?: boolean
 }
 export function useNotification(params: Initial) {
   const regex = new RegExp(`${params.key}\\s*=\\s*['"]([^'"]+)['"]`)
   let timer: any
+  let sended = false
+  const loop = params.loop || false
   const useCreateNotify = (notice: boolean) => new CustomEvent('siteUpdate', {
     bubbles: true,
     detail: { data: notice }
@@ -39,6 +42,7 @@ export function useNotification(params: Initial) {
   const validateHash = async () => {
     const hash = await queryNewHash()
     const data = hash.match(regex)
+    console.log(data, 'data')
     return data ? data[1] || null : null
   }
   const initEvent = () => {
@@ -67,6 +71,10 @@ export function useNotification(params: Initial) {
     }
   }
   const dispatchEvent = (status: boolean) => {
+    if (!loop && sended) return
+    if (status) {
+      sended = true
+    }
     const notice = useCreateNotify(status)
     window.dispatchEvent(notice)
   }

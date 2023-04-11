@@ -1,5 +1,5 @@
 interface FecthInit {
-    mehtod?: 'get' | 'post';
+    method?: 'get' | 'post';
     headers?: Headers;
     body?: any;
     mode?: any;
@@ -15,7 +15,7 @@ interface Initial {
     url?: string;
     init?: FecthInit;
     key: string;
+    loop?: boolean;
 }
-declare function useNotification(params: Initial): void;
-
-export { useNotification };
+export declare function useNotification(params: Initial): void;
+export {};

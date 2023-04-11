@@ -1,7 +1,6 @@
 const worker = `
 self.onmessage = function (e) {
   const { url, init } = e.data
-  console.log(e)
   const request = () => {
   return fetch(url, init)
   }
