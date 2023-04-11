@@ -23,23 +23,20 @@ interface Data {
   currentHash: string | null
 }
 export function useNotification(params: Initial) {
-  const regex = new RegExp(`${params.key}\\s*=\\s*['"]([^'"]+)['"]`)
-  let timer: any
-  const sended = false
-  const loop = params.loop || false
-  const useCreateNotify = (notice: boolean, data: Data) => new CustomEvent('siteUpdate', {
-    bubbles: true,
-    detail: { data: data, status: notice }
-  })
-
   const getCurrentHash = () => {
     const body = document.querySelector('body')
     if (!body) return ''
     const hash = body.getAttribute('data-hash')
     return hash
   }
-
-  const currentHash = getCurrentHash()
+  const regex = new RegExp(`${params.key}\\s*=\\s*['"]([^'"]+)['"]`)
+  let timer: any
+  let currentHash = getCurrentHash()
+  const loop = params.loop || false
+  const useCreateNotify = (notice: boolean, data: Data) => new CustomEvent('siteUpdate', {
+    bubbles: true,
+    detail: { data: data, status: notice }
+  })
   const queryNewHash = useGreenlet.bind(null, params.url || `${window.origin}?t=${Date.now()}`, params.init || {
     method: 'get'
   })
@@ -78,9 +75,8 @@ export function useNotification(params: Initial) {
     }
   }
   const dispatchEvent = (status: boolean, data: Data) => {
-    if (!loop && sended){
-      disposeUpdate()
-      return
+    if (!loop){
+      currentHash = data.siteHash
     }
     const notice = useCreateNotify(status, data)
     window.dispatchEvent(notice)
