@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.10](https://github.com/overdev-l/terky/compare/v1.1.9...v1.1.10) (2023-04-11)
+
+
+### Bug Fixes
+
+* **update-notifier:** 修复loop为false时重复通知 ([67bc549](https://github.com/overdev-l/terky/commit/67bc549d4bb51b04125d7efb146455e3c272a7b1))
+
 ### [1.1.9](https://github.com/overdev-l/terky/compare/v1.0.1...v1.1.9) (2023-04-11)
 
 
