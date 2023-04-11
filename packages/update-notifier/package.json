@@ -1,6 +1,6 @@
 {
   "name": "@terky/update-notifier",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "",
   "main": "./dist/index.js",
   "type": "module",
@@ -10,7 +10,7 @@
   "scripts": {
     "build": "rollup -c",
     "esbuild": "esbuild --bundle --minify --sourcemap --target=es2019 --format=esm --outdir=dist index.ts",
-    "type-checks": "tsc -p ./tsconfig.json",
+    "ts-types": "tsc -p ./tsconfig.json",
     "push": "npm version patch && npm publish --access=public"
   },
   "repository": {
