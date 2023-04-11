@@ -11,7 +11,7 @@
     "build": "rollup -c",
     "esbuild": "esbuild --bundle --minify --sourcemap --target=es2019 --format=esm --outdir=dist index.ts",
     "ts-types": "tsc -p ./tsconfig.json",
-    "push": "npm version patch && npm publish --access=public",
+    "push": "npm publish --access=public",
     "release": "standard-version"
   },
   "repository": {
