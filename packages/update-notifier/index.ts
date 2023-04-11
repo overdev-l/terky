@@ -18,19 +18,23 @@ interface Initial {
   key: string,
   loop?: boolean
 }
+interface Data {
+  siteHash: string | null,
+  currentHash: string | null
+}
 export function useNotification(params: Initial) {
   const regex = new RegExp(`${params.key}\\s*=\\s*['"]([^'"]+)['"]`)
   let timer: any
-  let sended = false
+  const sended = false
   const loop = params.loop || false
-  const useCreateNotify = (notice: boolean) => new CustomEvent('siteUpdate', {
+  const useCreateNotify = (notice: boolean, data: Data) => new CustomEvent('siteUpdate', {
     bubbles: true,
-    detail: { data: notice }
+    detail: { data: data, status: notice }
   })
 
   const getCurrentHash = () => {
     const body = document.querySelector('body')
-    if (!body) return false
+    if (!body) return ''
     const hash = body.getAttribute('data-hash')
     return hash
   }
@@ -42,7 +46,6 @@ export function useNotification(params: Initial) {
   const validateHash = async () => {
     const hash = await queryNewHash()
     const data = hash.match(regex)
-    console.log(data, 'data')
     return data ? data[1] || null : null
   }
   const initEvent = () => {
@@ -53,9 +56,11 @@ export function useNotification(params: Initial) {
   const handleVisibilityChange = async () => {
     if (document.visibilityState === 'visible') {
       const hash = await validateHash()
-      console.log(hash, currentHash, typeof hash, typeof currentHash, hash !== currentHash, 'hash !== currentHash')
       if (hash !== currentHash) {
-        dispatchEvent(true)
+        dispatchEvent(true, {
+          siteHash: hash,
+          currentHash: currentHash
+        })
       } else {
         initTimer()
       }
@@ -65,29 +70,39 @@ export function useNotification(params: Initial) {
   }
   const windowLoaded = async () => {
     const hash = await validateHash()
-    console.log(hash, currentHash, typeof hash, typeof currentHash, hash !== currentHash, 'hash !== currentHash')
     if (hash !== currentHash) {
-      dispatchEvent(true)
+      dispatchEvent(true, {
+        siteHash: hash,
+        currentHash: currentHash
+      })
     }
   }
-  const dispatchEvent = (status: boolean) => {
-    if (!loop && sended) return
-    if (status) {
-      sended = true
+  const dispatchEvent = (status: boolean, data: Data) => {
+    if (!loop && sended){
+      disposeUpdate()
+      return
     }
-    const notice = useCreateNotify(status)
+    const notice = useCreateNotify(status, data)
     window.dispatchEvent(notice)
   }
   const initTimer = () => {
     timer = setInterval(async () => {
       const hash = await validateHash()
-      console.log(hash, currentHash, typeof hash, typeof currentHash, hash !== currentHash, 'hash !== currentHash')
       if (hash !== currentHash) {
-        dispatchEvent(true)
+        dispatchEvent(true, {
+          siteHash: hash,
+          currentHash: currentHash
+        })
       }
     }, params.delay)
   }
   if (!currentHash) return
   initEvent()
   initTimer()
+
+  const disposeUpdate = () => {
+    clearInterval(timer)
+    window.removeEventListener('load', windowLoaded)
+    window.removeEventListener('visibilitychange', handleVisibilityChange)
+  }
 }
