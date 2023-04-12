@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/overdev-l/terky/compare/v1.1.10...v1.2.0) (2023-04-12)
+
+
+### Features
+
+* **loop:** 优化loop ([a88e04a](https://github.com/overdev-l/terky/commit/a88e04a0da96d3f0c9039e836d325944d5794670))
+* **packgae:** update version ([305c6e1](https://github.com/overdev-l/terky/commit/305c6e1e528e0ff3c5e8756a7b7936618fc45335))
+
+
+### Bug Fixes
+
+* **update-notifer:** 修复重复提示 ([27fec07](https://github.com/overdev-l/terky/commit/27fec07ae5e2d1aaf5e00c4490086e80461d690c))
+
 ### [1.1.10](https://github.com/overdev-l/terky/compare/v1.1.9...v1.1.10) (2023-04-11)
 
 
