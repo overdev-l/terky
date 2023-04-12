@@ -1,26 +1,26 @@
 import { useGreenlet } from './utils'
 interface FecthInit {
-  method?: 'get' | 'post',
-  headers?: Headers,
-  body?: any,
-  mode?: any
-  credentials?: any
-  cache?: any
-  redirect?: any
-  referrer?: any
-  referrerPolicy?: any
-  integrity?: any
+    method?: 'get' | 'post',
+    headers?: Headers,
+    body?: any,
+    mode?: any
+    credentials?: any
+    cache?: any
+    redirect?: any
+    referrer?: any
+    referrerPolicy?: any
+    integrity?: any
 }
 interface Initial {
-  delay: number
-  url?: string
-  init?: FecthInit
-  key: string,
-  loop?: boolean
+    delay: number
+    url?: string
+    init?: FecthInit
+    key: string,
+    loop?: boolean
 }
 interface Data {
-  siteHash: string | null,
-  currentHash: string | null
+    siteHash: string | null,
+    currentHash: string | null
 }
 export function useNotification(params: Initial) {
   const getCurrentHash = () => {
@@ -77,7 +77,7 @@ export function useNotification(params: Initial) {
   const dispatchEvent = (status: boolean, data: Data) => {
     const notice = useCreateNotify(status, data)
     window.dispatchEvent(notice)
-    if (!loop){
+    if (!loop) {
       currentHash = data.siteHash
     }
   }
